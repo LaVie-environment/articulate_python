@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 
-try:
-    int("a")
-except ValueError as error:
-    print(f"Something went wrong. Message: {error}")
+class GitHubApiError(Exception):
 
-print("Reached end of the program.")
+    def __init__(self, status_code):
+        if status_code == 403:
+            message = "Rate limit reached."
+        else:
+            message = f"Status code was: {status_code}."
+
+        super().__init__(message)
+
